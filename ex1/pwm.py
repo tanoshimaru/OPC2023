@@ -9,8 +9,8 @@ class PWM():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.p1, GPIO.OUT)
         GPIO.setup(self.p2, GPIO.OUT)
-        self.p1 = GPIO.PWM(self.p1, 50) #50Hz
-        self.p2 = GPIO.PWM(self.p2, 50) #50Hz
+        self.p1 = GPIO.PWM(self.p1, 50)  # 50Hz
+        self.p2 = GPIO.PWM(self.p2, 50)  # 50Hz
         self.p1.start(0)
         self.p2.start(0)
 
@@ -35,15 +35,13 @@ class PWM():
 
 if __name__ == "__main__":
     duty = 80
+    pwm = PWM()
     while True:
-        pwm = PWM()
         pwm.straight(duty)
-        print("straight")
-        sleep(5)
-        pwm.back(duty)
-        print("back")
         sleep(5)
         pwm.stop()
-        print("stop")
+        sleep(1)
+        pwm.back(duty)
         sleep(5)
-
+        pwm.stop()
+        sleep(1)
