@@ -1,9 +1,10 @@
+import RPi.GPIO as GPIO
 from aruco_detector import MarkSearch
 from cv2 import aruco
 from pwm import PWM
 from servo import Servo
 import cv2
-import time
+from time import sleep
 
 
 def main():
@@ -40,7 +41,7 @@ def main():
                 servo.servo_ctrl(0)
                 print("Move center")
             pwm.straight(duty)
-            time.sleep(0.5)
+            sleep(0.5)
             _center = center
 
         else:
@@ -49,15 +50,15 @@ def main():
             if _center[0] < ms.cap_width:
                 servo.servo_ctrl(9)
                 pwm.turn_right(80)
-                time.sleep(0.3)
+                sleep(0.3)
                 pwm.stop()
-                time.sleep(1)
+                sleep(1)
             else:
                 servo.servo_ctrl(-9)
                 pwm.turn_left(80)
-                time.sleep(0.3)
+                sleep(0.3)
                 pwm.stop()
-                time.sleep(1)
+                sleep(1)
             print("Search AR mark...")
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
