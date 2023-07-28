@@ -15,8 +15,8 @@ class PWM():
         GPIO.setup(self.p4, GPIO.OUT)
         self.p1 = GPIO.PWM(self.p1, 50)  # 50Hz
         self.p2 = GPIO.PWM(self.p2, 50)  # 50Hz
-        self.p1 = GPIO.PWM(self.p3, 50)  # 50Hz
-        self.p2 = GPIO.PWM(self.p4, 50)  # 50Hz
+        self.p3 = GPIO.PWM(self.p3, 50)  # 50Hz
+        self.p4 = GPIO.PWM(self.p4, 50)  # 50Hz
         self.p1.start(0)
         self.p2.start(0)
         self.p3.start(0)

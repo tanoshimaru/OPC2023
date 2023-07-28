@@ -35,6 +35,7 @@ def control():
     elif direction == "Stop":
         # ここにモータの命令を追加
         Motor.stop()
+        Servo.servo_ctrl(angle)
 
     return "OK"
 
