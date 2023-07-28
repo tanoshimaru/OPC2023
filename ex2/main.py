@@ -6,7 +6,6 @@ import cv2
 import time
 
 
-
 def main():
     ### --- aruco設定 --- ###
     dict_aruco = aruco.Dictionary_get(aruco.DICT_4X4_50)
@@ -22,9 +21,10 @@ def main():
     pwm = PWM()
     servo = Servo()
 
-    while True:
-        if ms.get_mark_coordinate(markID):
-            break
+    # while True:
+    #     if ms.get_mark_coordinate(markID):
+    #         break
+    _center = [0, 0]
 
     while True:
         center = ms.get_mark_coordinate(markID)
@@ -40,13 +40,25 @@ def main():
                 servo.servo_ctrl(0)
                 print("Move center")
             pwm.straight(duty)
-            time.sleep(0.1)
+            time.sleep(0.5)
+            _center = center
 
         else:
             # pwm.stop()
-            servo.servo_ctrl(0)
-            pwm.back(50)
-            # print("No ARUCO")
+            # servo.servo_ctrl(0)
+            if _center[0] < ms.cap_width:
+                servo.servo_ctrl(9)
+                pwm.turn_right(80)
+                time.sleep(0.3)
+                pwm.stop()
+                time.sleep(1)
+            else:
+                servo.servo_ctrl(-9)
+                pwm.turn_left(80)
+                time.sleep(0.3)
+                pwm.stop()
+                time.sleep(1)
+            print("Search AR mark...")
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             del pwm

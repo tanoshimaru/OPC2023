@@ -15,8 +15,8 @@ class PWM():
         GPIO.setup(self.p4, GPIO.OUT)
         self.p1 = GPIO.PWM(self.p1, 50)  # 50Hz
         self.p2 = GPIO.PWM(self.p2, 50)  # 50Hz
-        self.p1 = GPIO.PWM(self.p3, 50)  # 50Hz
-        self.p2 = GPIO.PWM(self.p4, 50)  # 50Hz
+        self.p3 = GPIO.PWM(self.p3, 50)  # 50Hz
+        self.p4 = GPIO.PWM(self.p4, 50)  # 50Hz
         self.p1.start(0)
         self.p2.start(0)
         self.p3.start(0)
@@ -43,6 +43,20 @@ class PWM():
         self.p4.ChangeDutyCycle(0)
         print("Stop")
 
+    def turn_right(self, duty):
+        self.p1.ChangeDutyCycle(0)
+        self.p2.ChangeDutyCycle(duty)
+        self.p3.ChangeDutyCycle(duty)
+        self.p4.ChangeDutyCycle(0)
+        print("Turn Right")
+
+    def turn_left(self, duty):
+        self.p1.ChangeDutyCycle(duty)
+        self.p2.ChangeDutyCycle(0)
+        self.p3.ChangeDutyCycle(0)
+        self.p4.ChangeDutyCycle(duty)
+        print("Turn Left")
+
     def __del__(self):
         GPIO.cleanup()
 
@@ -56,6 +70,8 @@ if __name__ == "__main__":
         pwm.stop()
         sleep(1)
         pwm.back(duty)
+        sleep(5)
+        pwm.searchAR(duty)
         sleep(5)
         pwm.stop()
         sleep(1)
