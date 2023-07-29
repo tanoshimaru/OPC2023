@@ -4,14 +4,10 @@ from cv2 import aruco
 from pwm import PWM
 from servo import Servo
 import cv2
-from time import sleep
+import time
 
 
 def main():
-    ### --- aruco設定 --- ###
-    dict_aruco = aruco.Dictionary_get(aruco.DICT_4X4_50)
-    parameters = aruco.DetectorParameters_create()
-
     ### --- camera --- ###
     cameraID = 0
     ms = MarkSearch(cameraID)
@@ -22,10 +18,8 @@ def main():
     pwm = PWM()
     servo = Servo()
 
-    # while True:
-    #     if ms.get_mark_coordinate(markID):
-    #         break
     _center = [0, 0]
+    x = 0
 
     while True:
         center = ms.get_mark_coordinate(markID)
@@ -41,25 +35,51 @@ def main():
                 servo.servo_ctrl(0)
                 print("Move center")
             pwm.straight(duty)
-            sleep(0.5)
+            t = time.time()
+            while time.time() - t < 0.1:
+                pass
             _center = center
+            x = 0
 
         else:
-            # pwm.stop()
-            # servo.servo_ctrl(0)
-            if _center[0] < ms.cap_width:
-                servo.servo_ctrl(9)
-                pwm.turn_right(80)
-                sleep(0.3)
-                pwm.stop()
-                sleep(1)
-            else:
-                servo.servo_ctrl(-9)
-                pwm.turn_left(80)
-                sleep(0.3)
-                pwm.stop()
-                sleep(1)
+            pwm.stop()
+            servo.servo_ctrl(0)
+            x += 1
             print("Search AR mark...")
+            if x > 70:
+                if _center[0] > ms.cap_width / 2 + 100:
+                    flag = False
+                    while True:
+                        servo.servo_ctrl(9)
+                        pwm.turn_right(100)
+                        t = time.time()
+                        while time.time() - t < 0.3:
+                            pass
+                        pwm.stop()
+                        t = time.time()
+                        while time.time() - t < 0.3:
+                            if ms.get_mark_coordinate(markID):
+                                flag = True
+                                break
+                        if flag:
+                            break
+
+                else:
+                    flag = False
+                    while True:
+                        servo.servo_ctrl(-9)
+                        pwm.turn_left(100)
+                        t = time.time()
+                        while time.time() - t < 0.3:
+                            pass
+                        pwm.stop()
+                        t = time.time()
+                        while time.time() - t < 0.3:
+                            if ms.get_mark_coordinate(markID):
+                                flag = True
+                                break
+                        if flag:
+                            break
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             del pwm

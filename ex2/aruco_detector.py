@@ -52,8 +52,11 @@ if __name__ == "__main__" :
 
     try:
         while True:
-            print(' ----- get_mark_coordinate ----- ')
-            print(cam0_mark_search.get_mark_coordinate(markID))
-            time.sleep(0.5)
+            center = cam0_mark_search.get_mark_coordinate(markID)
+            if center is not None:
+                print(center)
+            # print(' ----- get_mark_coordinate ----- ')
+            # print(cam0_mark_search.get_mark_coordinate(markID))
+            # time.sleep(0.5)
     except KeyboardInterrupt:
         cam0_mark_search.cap.release()
