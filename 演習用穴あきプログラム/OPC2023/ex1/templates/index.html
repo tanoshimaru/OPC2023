@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Open Campus 2023</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+    </head>
+    <body>
+        <div id="header">
+            <h1>
+                Open Campus 2023
+            </h1>
+        </div>
+        <div id="main">
+            <div id="slider_area">
+                <h2>
+                    スピード調整
+                </h2>
+                <input type="range" id="slider_speed" min="20" max="100" step="10">  <!-- ここを変更 -->
+                <p id="speed_value"></p>
+            </div>
+            <div id="slider_area">
+                <h2>
+                    角度調整
+                </h2>
+                <input type="range" id="slider_angle" min="-4" max="4" step="1">  <!-- ここを変更 -->
+                <p id="angle_value"></p>
+            </div>
+            <div id="button_area">
+                <div class="mybutton">
+                    <button id="button_straight">Straight</button>  <!-- ここを変更 -->
+                </div>
+                <div class="mybutton">
+                    <button id="button_back">Back</button>  <!-- ここを変更 -->
+                </div>
+                <div class="mybutton">
+                    <button id="button_stop">Stop</button>  <!-- ここを変更 -->
+                </div>
+            </div>
+            <div id="button_area">
+                <div class="mybutton">
+                    <button id="button_turn_left" onclick="sendControl('Turn_Left')">Turn Left</button>
+                </div>
+                <div class="mybutton">
+                    <button id="button_turn_right" onclick="sendControl('Turn_Right')">Turn Right</button>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                © 2023 Information Security Lab.
+            </p>
+        </div>
+    </body>
+    <script>
+        let objData = new Object();
+        objData.directionValue = "Stop";
+        objData.speedValue = "60";
+        objData.angleValue = "0";
+
+        function sendControl(direction) {
+            objData.directionValue = direction;
+            objData.speedValue = document.getElementById("slider_speed").value;
+            objData.angleValue = document.getElementById("slider_angle").value;
+            const jsonData = JSON.stringify(objData);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/control");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonData);
+        }
+
+        function updateSpeed(value) {
+            var speed = document.getElementById("speed_value");
+            speed.textContent = value;
+            objData.speedValue = value;
+            const jsonData = JSON.stringify(objData);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/control");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonData);
+        }
+
+        function updateAngle(value) {
+            var angle = document.getElementById("angle_value");
+            angle.textContent = value;
+            objData.angleValue = value;
+            const jsonData = JSON.stringify(objData);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/control");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonData);
+        }
+    </script>
+</html>
