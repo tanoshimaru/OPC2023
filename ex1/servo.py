@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
+
 class Servo:
     def __init__(self):
         servo_pin = 18
@@ -20,10 +21,11 @@ class Servo:
         self.servo.stop()
         GPIO.cleanup()
 
+
 if __name__ == "__main__":
     serv = Servo()
     try:
-        while(1):
+        while True:
             a = int(input("Enter the integer (-4 ~ 4): "))
             serv.servo_ctrl(a)
             sleep(0.3)

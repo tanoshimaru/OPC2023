@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
+
 class Servo:
     def __init__(self):
         servo_pin = 18
@@ -19,6 +20,7 @@ class Servo:
     def __del__(self):
         self.servo.stop()
         GPIO.cleanup()
+
 
 if __name__ == "__main__":
     serv = Servo()
