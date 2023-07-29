@@ -42,7 +42,7 @@ input[type="range"]::-webkit-slider-thumb {
     margin: 5vh 5vw;
 }
 
-#button_straight, #button_back {
+#button_straight, #button_back, #button_turn_left, #button_turn_right {
 	box-shadow:inset 0px 1px 0px 0px #b2d6e3;
 	background:linear-gradient(to bottom, #66adc7 5%, #0077a2 100%);
 	background-color:#66adc7;
@@ -59,12 +59,12 @@ input[type="range"]::-webkit-slider-thumb {
 	text-shadow:0px 1px 0px #3392b4;
 }
 
-#button_straight:hover, #button_back:hover {
+#button_straight:hover, #button_back:hover, #button_turn_left:hover, #button_turn_right:hover {
 	background:linear-gradient(to bottom, #0077a2 5%, #66adc7 100%);
 	background-color:#0077a2;
 }
 
-#button_straight:active, #button_back:active {
+#button_straight:active, #button_back:active, #button_turn_left:active, #button_turn_right:active {
 	position:relative;
 	top:1px;
 }

@@ -37,6 +37,14 @@ def control():
         Motor.stop()
         Servo.servo_ctrl(angle)
 
+    elif direction == "Turn_Left":
+        Motor.turn_left()
+        Servo.servo_ctrl(-9)
+
+    elif direction == "Turn_Right":
+        Motor.turn_right()
+        Servo.servo_ctrl(9)
+
     return "OK"
 
 

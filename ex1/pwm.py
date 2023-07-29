@@ -43,19 +43,19 @@ class PWM():
         self.p4.ChangeDutyCycle(0)
         print("Stop")
 
-    def turn_right(self, duty):
-        self.p1.ChangeDutyCycle(0)
-        self.p2.ChangeDutyCycle(duty)
-        self.p3.ChangeDutyCycle(duty)
-        self.p4.ChangeDutyCycle(0)
-        print("Turn Right")
-
     def turn_left(self, duty):
         self.p1.ChangeDutyCycle(duty)
         self.p2.ChangeDutyCycle(0)
         self.p3.ChangeDutyCycle(0)
         self.p4.ChangeDutyCycle(duty)
         print("Turn Left")
+
+    def turn_right(self, duty):
+        self.p1.ChangeDutyCycle(0)
+        self.p2.ChangeDutyCycle(duty)
+        self.p3.ChangeDutyCycle(duty)
+        self.p4.ChangeDutyCycle(0)
+        print("Turn Right")
 
     def __del__(self):
         GPIO.cleanup()
