@@ -57,7 +57,7 @@ def main():
                             pass
                         pwm.stop()
                         t = time.time()
-                        while time.time() - t < 0.3:
+                        while time.time() - t < 0.5:
                             if ms.get_mark_coordinate(markID):
                                 flag = True
                                 break
@@ -74,7 +74,7 @@ def main():
                             pass
                         pwm.stop()
                         t = time.time()
-                        while time.time() - t < 0.3:
+                        while time.time() - t < 0.5:
                             if ms.get_mark_coordinate(markID):
                                 flag = True
                                 break
