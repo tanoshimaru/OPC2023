@@ -22,7 +22,7 @@ def main():
     x = 0
 
     while True:
-        center = ms.get_mark_coordinate(markID)
+        frame_markers, center = ms.get_mark_coordinate(markID)
         if center is not None:
             print(center)
             if center[0] > ms.cap_width / 2 + 100:
@@ -80,6 +80,8 @@ def main():
                                 break
                         if flag:
                             break
+
+        cv2.imshow('frame', frame_markers)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             del pwm
